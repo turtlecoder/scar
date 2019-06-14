@@ -24,20 +24,20 @@ Outputs:
         - NameServers
 
 Resources:
-  # S3WWWBucket:
-  #   Type: AWS::S3::Bucket
-  #   Properties:
-  #     BucketName:
-  #       Fn::Join:
-  #       - ''
-  #       - - www.
-  #         - Ref: Domain
-  #     AccessControl: PublicRead
-  #     WebsiteConfiguration:
-  #       IndexDocument:
-  #         Ref: IndexFilename
-  #       ErrorDocument:
-  #         Ref: ErrorFilename
+  S3WWWBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Join:
+        - ''
+        - - www.
+          - Ref: Domain
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument:
+          Ref: IndexFilename
+        ErrorDocument:
+          Ref: ErrorFilename
   # S3RootBucket:
   #   Type: AWS::S3::Bucket
   #   Properties:
