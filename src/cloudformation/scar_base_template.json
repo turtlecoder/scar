@@ -90,34 +90,10 @@
         }
       }
     },
-    "ACMCertificate": {
-      "Type": "AWS::CertificateManager::Certificate",
-      "DependsOn": "Route53Zone",
-      "Properties": {
-        "DomainName": {
-          "Ref": "Domain"
-        },
-        "SubjectAlternativeNames": [
-          {
-            "Fn::Join": [
-              "",
-              [
-                "*.",
-                {
-                  "Ref": "Domain"
-                }
-              ]
-            ]
-          }
-        ],
-        "ValidationMethod": "DNS"
-      }
-    },
     "CloudFrontRootDistribution": {
       "Type": "AWS::CloudFront::Distribution",
       "DependsOn": [
-        "S3RootBucket",
-        "ACMCertificate"
+        "S3RootBucket"
       ],
       "Properties": {
         "DistributionConfig": {
@@ -184,9 +160,8 @@
             }
           ],
           "ViewerCertificate": {
-            "AcmCertificateArn": {
-              "Ref": "ACMCertificate"
-            },
+              "AcmCertificateArn": 
+		"arn:aws:acm:us-east-1:311048647626:certificate/dabfa06c-ae0e-4419-92ec-9b5da0e0cd10"            ,
             "SslSupportMethod": "sni-only",
             "MinimumProtocolVersion": "TLSv1.1_2016"
           }
@@ -196,8 +171,7 @@
     "CloudFrontWWWDistribution": {
       "Type": "AWS::CloudFront::Distribution",
       "DependsOn": [
-        "S3WWWBucket",
-        "ACMCertificate"
+        "S3WWWBucket"
       ],
       "Properties": {
         "DistributionConfig": {
@@ -273,11 +247,9 @@
             }
           ],
           "ViewerCertificate": {
-            "AcmCertificateArn": {
-              "Ref": "ACMCertificate"
-            },
-            "SslSupportMethod": "sni-only",
-            "MinimumProtocolVersion": "TLSv1.1_2016"
+              "AcmCertificateArn": "arn:aws:acm:us-east-1:311048647626:certificate/dabfa06c-ae0e-4419-92ec-9b5da0e0cd10",
+              "SslSupportMethod": "sni-only",
+              "MinimumProtocolVersion": "TLSv1.1_2016"
           }
         }
       }
